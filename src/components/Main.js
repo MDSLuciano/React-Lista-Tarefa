@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-
-//Form
-import { FaPlus } from "react-icons/fa"
-
-//Tarefas
-import { FaEdit, FaWindowClose } from "react-icons/fa"
+import Form from "./Form";
+import Tasks from "./Tasks";
 
 import "./Main.css";
 
@@ -31,8 +27,6 @@ export default class Main extends Component {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
-
-
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -63,10 +57,9 @@ export default class Main extends Component {
     };
   }
 
-
   handleChange = (event) => {
     this.setState({
-      newTask: event.target.value
+      newTask: event.target.value,
     });
   }
 
@@ -99,35 +92,19 @@ export default class Main extends Component {
     <div className="main">
       <h1>Lista de Tarefas</h1>
 
-      <form onSubmit={this.handleSubmit} action="#" className="form">
-        <input
-        onChange={this.handleChange}
-        type="text"
-        value={newTask}
-        />
-        <button type="submit">
-          <FaPlus />
-        </button>
-      </form>
+      <Form
+      handleSubmit={this.handleSubmit}
+      handleChange={this.handleChange}
+      newTask={newTask}
+      />
 
       {/* Renderização condicional e não podemos esquecer da key*/}
-      <ul className="tasks">
-        {tasks.map((task, index) => (
-          <li key={ index }>{ task }
-            <span>
-              <FaEdit
-                onClick={(event) => this.handleEdit(event, index)}
-                className="edit"
-              />
 
-              <FaWindowClose
-                onClick={(event) => this.handleDelete(event, index)}
-                className="delete"
-              />
-            </span>
-          </li>
-        ))}
-      </ul>
+      <Tasks
+        tasks={tasks}
+        handleEdit={this.handleEdit}
+        handleDelete={this.handleDelete}
+      />
 
     </div>
     );
