@@ -48,6 +48,7 @@
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
+  padding-left: 5px;
   font-size: 20px;
   transition: all 600ms;
 }
@@ -75,4 +76,10 @@
 .tasks li .delete{
   cursor: pointer;
   transition: all 600ms;
+}
+
+
+.tasks li span{
+  display: flex;
+  align-items: center;
 }
