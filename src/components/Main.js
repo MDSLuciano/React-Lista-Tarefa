@@ -32,13 +32,28 @@ export default class Main extends Component {
     });
   }
 
-
-
   handleChange = (event) => {
     this.setState({
       newTask: event.target.value
     });
   }
+
+  handleEdit = (event, index) => {
+    console.log('Editando tarefa', index);
+
+  }
+
+  handleDelete = (event, index) => {
+    const { tasks } = this.state;
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);//Remove a tarefa selecionada
+
+    this.setState({
+      tasks: newTasks
+    });
+  }
+
+
   render() {
     const { newTask, tasks } = this.state; //Desestruturação do metodo state
 
@@ -59,11 +74,18 @@ export default class Main extends Component {
 
       {/* Renderização condicional e não podemos esquecer da key*/}
       <ul className="tasks">
-        {tasks.map((task) => (
-          <li key={ task }>{ task }
+        {tasks.map((task, index) => (
+          <li key={ index }>{ task }
             <span>
-              <FaEdit className="edit" />
-              <FaWindowClose className="delete" />
+              <FaEdit
+                onClick={(event) => this.handleEdit(event, index)}
+                className="edit"
+              />
+
+              <FaWindowClose
+                onClick={(event) => this.handleDelete(event, index)}
+                className="delete"
+              />
             </span>
           </li>
         ))}
